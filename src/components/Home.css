@@ -1,0 +1,47 @@
+.home-container {
+    margin-top: 10vh;
+}
+
+.profile-pic-container {
+    width: 50%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.profile-pic-image {
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;
+}
+
+.text-container {
+    width: 50%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.description {
+    text-align: left;
+}
+
+.thanks {
+    text-align: left;
+}
+
+.route-button {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 0px;
+    background-color: #213744;
+    color: white;
+    margin: 3%;
+}
+
+.route-button:hover {
+    background-color: grey;
+}
+
+/* .career-status {
+    color: blue;
+} */
