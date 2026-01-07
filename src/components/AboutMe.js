@@ -83,18 +83,16 @@ const AboutMe = () => {
                 transition={{ duration: 0.5 }}
             >
                 <Paragraph isDarkMode={isDarkMode}>
-                    I'm a passionate Full Stack Developer with a strong foundation in both frontend and backend technologies.
-                    My journey in software development has led me to build various web applications, from social media platforms
-                    to job search engines and property sharing services.
+                I’m a Full Stack Software Engineer who loves turning messy, real-world problems into simple, reliable products. Before tech, I spent years in professional kitchens, and that experience still shapes how I work today: stay calm under pressure, move fast without cutting corners, and obsess over the details that make an experience feel effortless.
                 </Paragraph>
                 <Paragraph isDarkMode={isDarkMode}>
-                    With expertise in React, Node.js, and Python, I enjoy creating seamless user experiences while ensuring
-                    robust backend functionality. I'm particularly interested in building scalable applications and implementing
-                    modern web technologies to solve real-world problems.
+                These days, I focus on building end-to-end web applications and internal workflows that actually move the needle for users and teams. Recently, I helped automate complex transaction workflows to 80% coverage, saving over $2M in time and operational costs. I enjoy working across the stack with JavaScript/TypeScript, React, Node, Python, and SQL—whether that’s designing clean APIs, optimizing data flows, or refining the UX so it feels intuitive and fast.
                 </Paragraph>
                 <Paragraph isDarkMode={isDarkMode}>
-                    When I'm not coding, I'm constantly learning new technologies and contributing to open-source projects.
-                    I believe in writing clean, maintainable code and following best practices in software development.
+                I’m especially interested in problems around growth, performance, and observability: making products faster, more insightful, and easier to adopt. I care a lot about writing clean, maintainable code, collaborating closely with cross-functional partners, and using data and experimentation to guide what to build next.
+                </Paragraph>
+                <Paragraph isDarkMode={isDarkMode}>
+                When I’m not coding, you’ll usually find me cooking, surfing or skiing (depending on the season), shooting hoops, or exploring new spots around the Bay. If you’re working on something at the intersection of great UX, performance, and real-world impact, I’d love to connect.
                 </Paragraph>
 
                 <ContactSection isDarkMode={isDarkMode}>
