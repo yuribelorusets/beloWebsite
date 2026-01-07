@@ -6,10 +6,13 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from './contexts/ThemeContext';
 
+// Set basename for GitHub Pages (empty string for local development)
+const basename = process.env.PUBLIC_URL || '';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <ThemeProvider>
         <App />
       </ThemeProvider>
