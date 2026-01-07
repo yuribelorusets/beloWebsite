@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { useTheme } from '../contexts/ThemeContext';
 import './Home.css';
-import headshot from '../images/headshot.jpg';
+import pp from '../images/pp.jpeg';
 
 const HomeContainer = styled.div`
   min-height: calc(100vh - 80px);
@@ -110,7 +110,7 @@ const Home = () => {
           animate="visible"
         >
           <ProfilePicture
-            src={headshot}
+            src={pp}
             alt="Yuri Belorusets"
             variants={itemVariants}
             isDarkMode={isDarkMode}
