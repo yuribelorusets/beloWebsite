@@ -6,21 +6,16 @@ import Work from './Work';
 import Education from './Education';
 import Skills from './Skills';
 
-
-function Main () {
-
+function Main() {
     return (
-        <main>
-            <Routes>
-                <Route path='/' element={<Home />}/>
-                <Route path='/aboutme' element={<AboutMe />}/>
-                <Route path='/work' element={<Work />}/>
-                <Route path='/education' element={<Education />}/>
-                <Route path='/skills' element={<Skills />}/>
-            </Routes>
-        </main>
-    )
-
+        <Routes>
+            <Route path='/' element={<Home />}/>
+            <Route path='/aboutme' element={<AboutMe />}/>
+            <Route path='/work' element={<Work />}/>
+            <Route path='/education' element={<Education />}/>
+            <Route path='/skills' element={<Skills />}/>
+        </Routes>
+    );
 }
 
 export default Main;

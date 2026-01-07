@@ -1,44 +1,309 @@
 import React from 'react';
-import './Work.css';
+import styled from '@emotion/styled';
+import { motion } from 'framer-motion';
+import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { useTheme } from '../contexts/ThemeContext';
+
+const WorkContainer = styled.div`
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+`;
+
+const Title = styled.h1`
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  background: linear-gradient(45deg, #007bff, #00bcd4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+`;
+
+const SectionTitle = styled.h2`
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  margin-top: 4rem;
+  color: ${props => props.isDarkMode ? '#e0e0e0' : '#333'};
+  transition: color 0.3s ease;
+`;
+
+const ExperienceList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 4rem;
+`;
+
+const ExperienceCard = styled(motion.div)`
+  background: ${props => props.isDarkMode ? '#2a2a2a' : 'white'};
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: ${props => props.isDarkMode
+    ? '0 4px 6px rgba(0, 0, 0, 0.5)'
+    : '0 4px 6px rgba(0, 0, 0, 0.1)'};
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+`;
+
+const ExperienceHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+`;
+
+const JobTitle = styled.h3`
+  font-size: 1.5rem;
+  color: ${props => props.isDarkMode ? '#e0e0e0' : '#333'};
+  margin-bottom: 0.5rem;
+  transition: color 0.3s ease;
+`;
+
+const Company = styled.h4`
+  font-size: 1.2rem;
+  color: #007bff;
+  margin-bottom: 0.5rem;
+`;
+
+const DateRange = styled.span`
+  color: ${props => props.isDarkMode ? '#b0b0b0' : '#666'};
+  font-size: 0.9rem;
+  font-style: italic;
+  transition: color 0.3s ease;
+`;
+
+const Responsibilities = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+`;
+
+const Responsibility = styled.li`
+  color: ${props => props.isDarkMode ? '#b0b0b0' : '#666'};
+  line-height: 1.8;
+  margin-bottom: 0.75rem;
+  padding-left: 1.5rem;
+  position: relative;
+  transition: color 0.3s ease;
+
+  &:before {
+    content: "▹";
+    position: absolute;
+    left: 0;
+    color: #007bff;
+    font-weight: bold;
+  }
+`;
+
+const ProjectsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+`;
+
+const ProjectCard = styled(motion.div)`
+  background: ${props => props.isDarkMode ? '#2a2a2a' : 'white'};
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: ${props => props.isDarkMode
+    ? '0 4px 6px rgba(0, 0, 0, 0.5)'
+    : '0 4px 6px rgba(0, 0, 0, 0.1)'};
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+`;
+
+const ProjectTitle = styled.h2`
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: ${props => props.isDarkMode ? '#e0e0e0' : '#333'};
+  transition: color 0.3s ease;
+`;
+
+const ProjectDescription = styled.p`
+  color: ${props => props.isDarkMode ? '#b0b0b0' : '#666'};
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  transition: color 0.3s ease;
+`;
+
+const TechStack = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+`;
+
+const TechTag = styled.span`
+  background: ${props => props.isDarkMode ? '#3a3a3a' : '#f0f0f0'};
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.875rem;
+  color: ${props => props.isDarkMode ? '#b0b0b0' : '#666'};
+  transition: background-color 0.3s ease, color 0.3s ease;
+`;
+
+const ProjectLinks = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+`;
+
+const ProjectLink = styled.a`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #0056b3;
+  }
+`;
 
 function Work() {
+    const { isDarkMode } = useTheme();
+
+    const experiences = [
+        {
+            title: "Full Stack Software Engineer",
+            company: "Accenture X Google",
+            location: "San Jose, CA",
+            dateRange: "Jan 2024 – Present",
+            responsibilities: [
+                "Developed workflows using search engine giant's proprietary tools and JavaScript for dynamic front-end manipulation",
+                "Automated support for multiple Google products including failed transaction workflows, saving $2M+ and achieving 80% process automation",
+                "Queried API data with SQL, ensuring accurate and efficient data integration",
+                "Designed and tested APIs and workflows, ensuring seamless deployments and robust functionality",
+                "Resolved user-reported bugs and improved code quality through peer reviews"
+            ]
+        },
+        {
+            title: "Data Engineer",
+            company: "Accenture X Google",
+            location: "San Jose, CA",
+            dateRange: "Oct 2022 – Jan 2024",
+            responsibilities: [
+                "Analyzed and monitored the performance of leading search engine's multilingual Natural Language Understanding (NLU) models, trained in 30+ languages, ensuring accuracy across diverse datasets",
+                "Utilized TensorFlow to optimize machine learning pipelines, fine-tuning models for improved performance",
+                "Identified and resolved data drifts, mitigating confusion between commands and intents to enhance model accuracy",
+                "Designed and implemented presubmit checks, improving the reliability and stability of model deployments",
+                "Created Tableau dashboards to visualize trends in the model, enabling stakeholders to make data-driven decisions",
+                "Developed workflows for monitoring key performance indicators (KPIs) and addressing technical challenges",
+                "Delivered insights into model performance outputs, contributing to advancements in multilingual intent recognition"
+            ]
+        },
+        {
+            title: "Software Engineer Intern",
+            company: "Foqal",
+            location: "San Francisco, CA",
+            dateRange: "May 2022 – June 2022",
+            responsibilities: [
+                "Developed responsive admin dashboards using Apollo, TypeScript, and React",
+                "Built scalable UI components and implemented design updates using Bootstrap and CSS",
+                "Diagnosed and resolved issues with GraphQL mutations and object types, ensuring robust data flows",
+                "Added unit and end-to-end tests using Jest and Cypress to ensure application quality"
+            ]
+        }
+    ];
+
     const projects = [
         {
-            title: "Project 1",
-            description: "A brief description of your project",
-            technologies: ["React", "Node.js", "MongoDB"],
-            github: "https://github.com/yourusername/project1",
-            live: "https://project1-demo.com",
-            image: "project1-screenshot.jpg"
+            title: "ShareBnB",
+            description: "A full-stack web application for sharing and discovering unique accommodations. Users can list their properties, search for places to stay, and manage bookings.",
+            technologies: ["React", "Node.js", "Express", "PostgreSQL", "AWS S3"],
+            github: "https://github.com/yuribelorusets/shareBnB",
+            live: "https://sharebnb.surge.sh/",
         },
-        // Add more projects here
+        {
+            title: "Jobly",
+            description: "A job search platform where users can create profiles, search for jobs, and apply to positions. Companies can post job listings and manage applications.",
+            technologies: ["React", "Node.js", "Express", "PostgreSQL", "JWT"],
+            github: "https://github.com/yuribelorusets/jobly",
+            live: "https://jobly-yuri.surge.sh/",
+        },
+        {
+            title: "Warbler",
+            description: "A Twitter clone built with Python and Flask. Users can post messages, follow other users, and interact with posts through likes and comments.",
+            technologies: ["Python", "Flask", "SQLAlchemy", "PostgreSQL", "Jinja2"],
+            github: "https://github.com/yuribelorusets/flask-warbler",
+            live: null,
+        }
     ];
 
     return (
-        <div className="work-container">
-            <h1>My Projects</h1>
-            <div className="projects-grid">
-                {projects.map((project, index) => (
-                    <div key={index} className="project-card">
-                        <h2>{project.title}</h2>
-                        <p>{project.description}</p>
-                        <div className="tech-stack">
-                            {project.technologies.map((tech, i) => (
-                                <span key={i} className="tech-tag">{tech}</span>
+        <WorkContainer>
+            <Title>Work Experience</Title>
+            <ExperienceList>
+                {experiences.map((experience, index) => (
+                    <ExperienceCard
+                        key={index}
+                        isDarkMode={isDarkMode}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.2 }}
+                        whileHover={{ scale: 1.01 }}
+                    >
+                        <ExperienceHeader>
+                            <div>
+                                <JobTitle isDarkMode={isDarkMode}>{experience.title}</JobTitle>
+                                <Company>{experience.company}</Company>
+                            </div>
+                            <DateRange isDarkMode={isDarkMode}>{experience.dateRange}</DateRange>
+                        </ExperienceHeader>
+                        <Responsibilities>
+                            {experience.responsibilities.map((responsibility, i) => (
+                                <Responsibility key={i} isDarkMode={isDarkMode}>{responsibility}</Responsibility>
                             ))}
-                        </div>
-                        <div className="project-links">
-                            <a href={project.github} target="_blank" rel="noopener noreferrer">
-                                GitHub
-                            </a>
-                            <a href={project.live} target="_blank" rel="noopener noreferrer">
-                                Live Demo
-                            </a>
-                        </div>
-                    </div>
+                        </Responsibilities>
+                    </ExperienceCard>
                 ))}
-            </div>
-        </div>
+            </ExperienceList>
+
+            <SectionTitle isDarkMode={isDarkMode}>My Projects</SectionTitle>
+            <ProjectsGrid>
+                {projects.map((project, index) => (
+                    <ProjectCard
+                        key={index}
+                        isDarkMode={isDarkMode}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.2 }}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                    >
+                        <ProjectTitle isDarkMode={isDarkMode}>{project.title}</ProjectTitle>
+                        <ProjectDescription isDarkMode={isDarkMode}>{project.description}</ProjectDescription>
+                        <TechStack>
+                            {project.technologies.map((tech, i) => (
+                                <TechTag key={i} isDarkMode={isDarkMode}>{tech}</TechTag>
+                            ))}
+                        </TechStack>
+                        <ProjectLinks>
+                            <ProjectLink href={project.github} target="_blank" rel="noopener noreferrer">
+                                <FaGithub /> GitHub
+                            </ProjectLink>
+                            {project.live && (
+                                <ProjectLink href={project.live} target="_blank" rel="noopener noreferrer">
+                                    <FaExternalLinkAlt /> Live Demo
+                                </ProjectLink>
+                            )}
+                        </ProjectLinks>
+                    </ProjectCard>
+                ))}
+            </ProjectsGrid>
+        </WorkContainer>
     );
 }
 
