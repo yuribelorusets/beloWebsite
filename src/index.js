@@ -6,8 +6,24 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from './contexts/ThemeContext';
 
-// Set basename for GitHub Pages (empty string for local development)
-const basename = process.env.PUBLIC_URL || '';
+// Set basename for GitHub Pages
+// Extract pathname from homepage URL (e.g., "/beloWebsite" from "https://yuribelorusets.github.io/beloWebsite")
+const getBasename = () => {
+  if (process.env.PUBLIC_URL) {
+    try {
+      const url = new URL(process.env.PUBLIC_URL);
+      return url.pathname;
+    } catch {
+      // If PUBLIC_URL is just a pathname (starts with /)
+      if (process.env.PUBLIC_URL.startsWith('/')) {
+        return process.env.PUBLIC_URL;
+      }
+    }
+  }
+  return '';
+};
+
+const basename = getBasename();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
