@@ -1,12 +1,16 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
-import { useTheme } from '../contexts/ThemeContext';
 
 const EducationContainer = styled.div`
   padding: 2rem;
   max-width: 1000px;
   margin: 0 auto;
+
+  @media (max-width: 768px) {
+    padding: 0.5rem;
+    max-width: 100%;
+  }
 `;
 
 const Title = styled.h1`
@@ -24,13 +28,15 @@ const EducationList = styled.div`
 `;
 
 const EducationCard = styled(motion.div)`
-  background: ${props => props.isDarkMode ? '#2a2a2a' : 'white'};
+  background: var(--bg-card);
   border-radius: 10px;
   padding: 2rem;
-  box-shadow: ${props => props.isDarkMode
-    ? '0 4px 6px rgba(0, 0, 0, 0.5)'
-    : '0 4px 6px rgba(0, 0, 0, 0.1)'};
+  box-shadow: 0 4px 6px var(--shadow-light);
   transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
 
   &:hover {
     transform: translateY(-5px);
@@ -52,7 +58,7 @@ const EducationHeader = styled.div`
 
 const SchoolName = styled.h2`
   font-size: 1.5rem;
-  color: ${props => props.isDarkMode ? '#e0e0e0' : '#333'};
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
   transition: color 0.3s ease;
 
@@ -63,7 +69,7 @@ const SchoolName = styled.h2`
 
 const Degree = styled.h3`
   font-size: 1.3rem;
-  color: #007bff;
+  color: var(--accent-color);
   margin-bottom: 0.5rem;
 `;
 
@@ -81,21 +87,19 @@ const DateLocation = styled.div`
 `;
 
 const DateRange = styled.span`
-  color: ${props => props.isDarkMode ? '#b0b0b0' : '#666'};
+  color: var(--text-secondary);
   font-size: 0.9rem;
   font-style: italic;
   transition: color 0.3s ease;
 `;
 
 const Location = styled.span`
-  color: ${props => props.isDarkMode ? '#b0b0b0' : '#666'};
+  color: var(--text-secondary);
   font-size: 0.9rem;
   transition: color 0.3s ease;
 `;
 
 const Education = () => {
-  const { isDarkMode } = useTheme();
-
   const education = [
     {
       school: "Rithm School",
@@ -106,7 +110,7 @@ const Education = () => {
     {
       school: "University of British Columbia",
       degree: "Computer Science / Cognitive Systems",
-      dateRange: "Aug 2016 – Jun 2018",
+      dateRange: "Aug 2016 – Jun 2020",
       location: "Vancouver, BC"
     }
   ];
@@ -118,7 +122,6 @@ const Education = () => {
         {education.map((edu, index) => (
           <EducationCard
             key={index}
-            isDarkMode={isDarkMode}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.2 }}
@@ -126,12 +129,12 @@ const Education = () => {
           >
             <EducationHeader>
               <div>
-                <SchoolName isDarkMode={isDarkMode}>{edu.school}</SchoolName>
+                <SchoolName>{edu.school}</SchoolName>
                 <Degree>{edu.degree}</Degree>
               </div>
               <DateLocation>
-                <DateRange isDarkMode={isDarkMode}>{edu.dateRange}</DateRange>
-                <Location isDarkMode={isDarkMode}>{edu.location}</Location>
+                <DateRange>{edu.dateRange}</DateRange>
+                <Location>{edu.location}</Location>
               </DateLocation>
             </EducationHeader>
           </EducationCard>

@@ -3,10 +3,13 @@ import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 import { FaReact, FaNodeJs, FaPython, FaDatabase, FaGitAlt, FaAws, FaJava, FaHtml5, FaCss3Alt } from 'react-icons/fa';
 import { SiJavascript, SiTypescript, SiPostgresql, SiExpress, SiFlask, SiGraphql, SiRedux, SiJest, SiApollographql, SiBootstrap, SiTensorflow, SiTableau, SiGooglecloud, SiNextdotjs, SiTailwindcss, SiMui, SiMongodb, SiRedis, SiMysql, SiPrisma, SiWebpack, SiVite, SiReactrouter, SiPytorch, SiPandas, SiJupyter, SiScikitlearn, SiNumpy, SiCypress, SiDocker, SiKubernetes, SiPostman, SiNpm } from 'react-icons/si';
-import { useTheme } from '../contexts/ThemeContext';
 
 const SkillsContainer = styled.div`
   padding: 2rem;
+
+  @media (max-width: 768px) {
+    padding: 0.5rem;
+  }
 `;
 
 const Title = styled.h1`
@@ -24,19 +27,17 @@ const SkillsGrid = styled.div`
 `;
 
 const SkillCategory = styled(motion.div)`
-  background: ${props => props.isDarkMode ? '#2a2a2a' : 'white'};
+  background: var(--bg-card);
   border-radius: 10px;
   padding: 1.5rem;
-  box-shadow: ${props => props.isDarkMode
-    ? '0 4px 6px rgba(0, 0, 0, 0.5)'
-    : '0 4px 6px rgba(0, 0, 0, 0.1)'};
+  box-shadow: 0 4px 6px var(--shadow-light);
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 `;
 
 const CategoryTitle = styled.h2`
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
-  color: ${props => props.isDarkMode ? '#e0e0e0' : '#333'};
+  color: var(--text-primary);
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -53,11 +54,11 @@ const SkillItem = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: ${props => props.isDarkMode ? '#3a3a3a' : '#f8f9fa'};
+  background: var(--bg-tertiary);
   padding: 0.5rem 1rem;
   border-radius: 20px;
   font-size: 0.9rem;
-  color: ${props => props.isDarkMode ? '#b0b0b0' : '#666'};
+  color: var(--text-secondary);
   transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 
   &:hover {
@@ -158,8 +159,6 @@ const Skills = () => {
         }
     ];
 
-    const { isDarkMode } = useTheme();
-
     return (
         <SkillsContainer>
             <Title>Skills & Technologies</Title>
@@ -167,17 +166,16 @@ const Skills = () => {
                 {skillCategories.map((category, index) => (
                     <SkillCategory
                         key={index}
-                        isDarkMode={isDarkMode}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.2 }}
                     >
-                        <CategoryTitle isDarkMode={isDarkMode}>
+                        <CategoryTitle>
                             {category.icon} {category.title}
                         </CategoryTitle>
                         <SkillsList>
                             {category.skills.map((skill, i) => (
-                                <SkillItem key={i} isDarkMode={isDarkMode}>
+                                <SkillItem key={i}>
                                     {skill.icon && skill.icon} {skill.name}
                                 </SkillItem>
                             ))}

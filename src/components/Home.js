@@ -2,7 +2,6 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
-import { useTheme } from '../contexts/ThemeContext';
 import './Home.css';
 import pp from '../images/pp.jpeg';
 
@@ -24,10 +23,8 @@ const ProfilePicture = styled(motion.img)`
   border-radius: 50%;
   object-fit: cover;
   margin: 0 auto 2rem;
-  border: 4px solid ${props => props.isDarkMode ? '#444' : '#f0f0f0'};
-  box-shadow: ${props => props.isDarkMode
-    ? '0 4px 6px rgba(0, 0, 0, 0.5)'
-    : '0 4px 6px rgba(0, 0, 0, 0.1)'};
+  border: 4px solid var(--border-color);
+  box-shadow: 0 4px 6px var(--shadow-light);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
   @media (max-width: 768px) {
@@ -51,7 +48,7 @@ const Title = styled(motion.h1)`
 
 const Subtitle = styled(motion.p)`
   font-size: 1.5rem;
-  color: ${props => props.isDarkMode ? '#b0b0b0' : '#666'};
+  color: var(--text-secondary);
   margin-bottom: 2rem;
   transition: color 0.3s ease;
 
@@ -68,18 +65,16 @@ const SocialLinks = styled(motion.div)`
 `;
 
 const SocialLink = styled.a`
-  color: ${props => props.isDarkMode ? '#e0e0e0' : '#333'};
+  color: var(--text-primary);
   font-size: 1.5rem;
   transition: color 0.3s ease;
 
   &:hover {
-    color: #007bff;
+    color: var(--accent-color);
   }
 `;
 
 const Home = () => {
-  const { isDarkMode } = useTheme();
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -113,19 +108,18 @@ const Home = () => {
             src={pp}
             alt="Yuri Belorusets"
             variants={itemVariants}
-            isDarkMode={isDarkMode}
           />
           <Title variants={itemVariants}>
             Hi, I'm Yuri Belorusets
           </Title>
-          <Subtitle variants={itemVariants} isDarkMode={isDarkMode}>
+          <Subtitle variants={itemVariants}>
             Full Stack Engineer & Chef
           </Subtitle>
           <SocialLinks variants={itemVariants}>
-            <SocialLink href="https://github.com/yuribelorusets" target="_blank" rel="noopener noreferrer" isDarkMode={isDarkMode}>
+            <SocialLink href="https://github.com/yuribelorusets" target="_blank" rel="noopener noreferrer">
               <FaGithub />
             </SocialLink>
-            <SocialLink href="https://www.linkedin.com/in/yuribelorusets/" target="_blank" rel="noopener noreferrer" isDarkMode={isDarkMode}>
+            <SocialLink href="https://www.linkedin.com/in/yuribelorusets/" target="_blank" rel="noopener noreferrer">
               <FaLinkedin />
             </SocialLink>
           </SocialLinks>

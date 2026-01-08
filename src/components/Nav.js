@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FaBars, FaTimes, FaMoon, FaSun } from 'react-icons/fa';
 import { useTheme } from '../contexts/ThemeContext';
 
@@ -11,13 +11,9 @@ const NavContainer = styled.nav`
   left: 0;
   right: 0;
   z-index: 1000;
-  background: ${props => props.isDarkMode
-    ? 'rgba(26, 26, 26, 0.95)'
-    : 'rgba(255, 255, 255, 0.95)'};
+  background: var(--bg-nav);
   backdrop-filter: blur(5px);
-  box-shadow: ${props => props.isDarkMode
-    ? '0 2px 10px rgba(0, 0, 0, 0.5)'
-    : '0 2px 10px rgba(0, 0, 0, 0.1)'};
+  box-shadow: 0 2px 10px var(--shadow-light);
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 `;
 
@@ -33,12 +29,12 @@ const NavContent = styled.div`
 const Logo = styled(Link)`
   font-size: 1.5rem;
   font-weight: bold;
-  color: ${props => props.isDarkMode ? '#e0e0e0' : '#333'};
+  color: var(--text-primary);
   text-decoration: none;
   transition: color 0.3s ease;
 
   &:hover {
-    color: #007bff;
+    color: var(--accent-color);
   }
 `;
 
@@ -53,7 +49,7 @@ const NavLinks = styled.div`
 `;
 
 const NavLink = styled(Link)`
-  color: ${props => props.isDarkMode ? '#e0e0e0' : '#333'};
+  color: var(--text-primary);
   text-decoration: none;
   font-weight: 500;
   position: relative;
@@ -67,7 +63,7 @@ const NavLink = styled(Link)`
     left: 0;
     width: 0;
     height: 2px;
-    background: #007bff;
+    background: var(--accent-color);
     transition: width 0.3s ease;
   }
 
@@ -76,7 +72,7 @@ const NavLink = styled(Link)`
   }
 
   &.active {
-    color: #007bff;
+    color: var(--accent-color);
     &::after {
       width: 100%;
     }
@@ -88,7 +84,7 @@ const MobileMenuButton = styled.button`
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: ${props => props.isDarkMode ? '#e0e0e0' : '#333'};
+  color: var(--text-primary);
   cursor: pointer;
   transition: color 0.3s ease;
 
@@ -101,7 +97,7 @@ const ThemeToggle = styled.button`
   background: none;
   border: none;
   font-size: 1.2rem;
-  color: ${props => props.isDarkMode ? '#e0e0e0' : '#333'};
+  color: var(--text-primary);
   cursor: pointer;
   padding: 0.5rem;
   border-radius: 50%;
@@ -111,7 +107,7 @@ const ThemeToggle = styled.button`
   transition: color 0.3s ease, background-color 0.3s ease;
 
   &:hover {
-    background-color: ${props => props.isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)'};
+    background-color: var(--bg-hover);
   }
 
   @media (max-width: 768px) {
@@ -127,25 +123,36 @@ const MobileThemeToggle = styled(ThemeToggle)`
   }
 `;
 
-const MobileMenu = styled(motion.div)`
+const Backdrop = styled(motion.div)`
   display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--backdrop-light);
+  z-index: 999;
+  backdrop-filter: blur(2px);
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+`;
+
+const MobileMenu = styled(motion.div)`
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   width: 250px;
-  background: ${props => props.isDarkMode ? '#2a2a2a' : 'white'};
+  background-color: var(--bg-card);
   padding: 2rem;
-  box-shadow: ${props => props.isDarkMode
-    ? '-2px 0 10px rgba(0, 0, 0, 0.5)'
-    : '-2px 0 10px rgba(0, 0, 0, 0.1)'};
-  transition: background-color 0.3s ease;
-
-  @media (max-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
+  box-shadow: -2px 0 10px var(--shadow-medium);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  z-index: 1001;
+  overflow-y: auto;
 `;
 
 const Nav = () => {
@@ -161,60 +168,95 @@ const Nav = () => {
     { path: '/skills', label: 'Skills' },
   ];
 
-  return (
-    <NavContainer isDarkMode={isDarkMode}>
-      <NavContent>
-        <Logo to="/" isDarkMode={isDarkMode}>Belo</Logo>
-        <NavLinks>
-          {navItems.map((item) => (
-            <NavLink
-              key={item.path}
-              to={item.path}
-              className={location.pathname === item.path ? 'active' : ''}
-              isDarkMode={isDarkMode}
-            >
-              {item.label}
-            </NavLink>
-          ))}
-          <ThemeToggle onClick={toggleTheme} isDarkMode={isDarkMode} aria-label="Toggle theme">
-            {isDarkMode ? <FaSun /> : <FaMoon />}
-          </ThemeToggle>
-        </NavLinks>
-        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-          <MobileThemeToggle onClick={toggleTheme} isDarkMode={isDarkMode} aria-label="Toggle theme">
-            {isDarkMode ? <FaSun /> : <FaMoon />}
-          </MobileThemeToggle>
-          <MobileMenuButton
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            isDarkMode={isDarkMode}
-          >
-            {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
-          </MobileMenuButton>
-        </div>
-      </NavContent>
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isMobileMenuOpen && !event.target.closest('[data-mobile-menu]')) {
+        setIsMobileMenuOpen(false);
+      }
+    };
 
-      <MobileMenu
-        isDarkMode={isDarkMode}
-        initial={{ x: '100%' }}
-        animate={{ x: isMobileMenuOpen ? 0 : '100%' }}
-        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-      >
-        <ThemeToggle onClick={toggleTheme} isDarkMode={isDarkMode} aria-label="Toggle theme" style={{ alignSelf: 'flex-start', display: 'flex' }}>
-          {isDarkMode ? <FaSun /> : <FaMoon />}
-        </ThemeToggle>
-        {navItems.map((item) => (
-          <NavLink
-            key={item.path}
-            to={item.path}
-            className={location.pathname === item.path ? 'active' : ''}
-            onClick={() => setIsMobileMenuOpen(false)}
-            isDarkMode={isDarkMode}
-          >
-            {item.label}
-          </NavLink>
-        ))}
-      </MobileMenu>
-    </NavContainer>
+    if (isMobileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      // Prevent body scroll when menu is open
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
+
+  return (
+    <>
+      <NavContainer>
+        <NavContent>
+          <Logo to="/">Belo</Logo>
+          <NavLinks>
+            {navItems.map((item) => (
+              <NavLink
+                key={item.path}
+                to={item.path}
+                className={location.pathname === item.path ? 'active' : ''}
+              >
+                {item.label}
+              </NavLink>
+            ))}
+            <ThemeToggle onClick={toggleTheme} aria-label="Toggle theme">
+              {isDarkMode ? <FaSun /> : <FaMoon />}
+            </ThemeToggle>
+          </NavLinks>
+          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+            <MobileThemeToggle onClick={toggleTheme} aria-label="Toggle theme">
+              {isDarkMode ? <FaSun /> : <FaMoon />}
+            </MobileThemeToggle>
+            <MobileMenuButton
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+            </MobileMenuButton>
+          </div>
+        </NavContent>
+      </NavContainer>
+
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <>
+            <Backdrop
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+            <MobileMenu
+              data-mobile-menu
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+            >
+              <ThemeToggle onClick={toggleTheme} aria-label="Toggle theme" style={{ alignSelf: 'flex-start', display: 'flex' }}>
+                {isDarkMode ? <FaSun /> : <FaMoon />}
+              </ThemeToggle>
+              {navItems.map((item) => (
+                <NavLink
+                  key={item.path}
+                  to={item.path}
+                  className={location.pathname === item.path ? 'active' : ''}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.label}
+                </NavLink>
+              ))}
+            </MobileMenu>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 

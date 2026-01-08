@@ -7,8 +7,14 @@ import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from './contexts/ThemeContext';
 
 // Set basename for GitHub Pages
-// Extract pathname from homepage URL (e.g., "/beloWebsite" from "https://yuribelorusets.github.io/beloWebsite")
+// Only use basename in production builds, not in development
 const getBasename = () => {
+  // In development, don't use basename
+  if (process.env.NODE_ENV === 'development') {
+    return '';
+  }
+
+  // In production, check if we're on GitHub Pages
   if (process.env.PUBLIC_URL) {
     try {
       const url = new URL(process.env.PUBLIC_URL);

@@ -3,12 +3,11 @@ import styled from '@emotion/styled';
 import Nav from './components/Nav';
 import Main from './components/Main';
 import Footer from './components/Footer';
-import { useTheme } from './contexts/ThemeContext';
 import './App.css';
 
 const AppContainer = styled.div`
   min-height: 100vh;
-  background: ${props => props.isDarkMode ? '#1a1a1a' : '#fafafa'};
+  background: var(--bg-primary);
   display: flex;
   flex-direction: column;
   transition: background-color 0.3s ease;
@@ -24,10 +23,8 @@ const MainContent = styled.main`
 `;
 
 function App() {
-  const { isDarkMode } = useTheme();
-
   return (
-    <AppContainer isDarkMode={isDarkMode}>
+    <AppContainer>
       <Nav />
       <MainContent>
         <Main />

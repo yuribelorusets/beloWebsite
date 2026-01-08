@@ -2,12 +2,16 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
-import { useTheme } from '../contexts/ThemeContext';
 
 const WorkContainer = styled.div`
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+
+  @media (max-width: 768px) {
+    padding: 0.5rem;
+    max-width: 100%;
+  }
 `;
 
 const Title = styled.h1`
@@ -22,7 +26,7 @@ const SectionTitle = styled.h2`
   font-size: 2rem;
   margin-bottom: 2rem;
   margin-top: 4rem;
-  color: ${props => props.isDarkMode ? '#e0e0e0' : '#333'};
+  color: var(--text-primary);
   transition: color 0.3s ease;
 `;
 
@@ -34,13 +38,15 @@ const ExperienceList = styled.div`
 `;
 
 const ExperienceCard = styled(motion.div)`
-  background: ${props => props.isDarkMode ? '#2a2a2a' : 'white'};
+  background: var(--bg-card);
   border-radius: 10px;
   padding: 2rem;
-  box-shadow: ${props => props.isDarkMode
-    ? '0 4px 6px rgba(0, 0, 0, 0.5)'
-    : '0 4px 6px rgba(0, 0, 0, 0.1)'};
+  box-shadow: 0 4px 6px var(--shadow-light);
   transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
 
   &:hover {
     transform: translateY(-5px);
@@ -61,19 +67,19 @@ const ExperienceHeader = styled.div`
 
 const JobTitle = styled.h3`
   font-size: 1.5rem;
-  color: ${props => props.isDarkMode ? '#e0e0e0' : '#333'};
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
   transition: color 0.3s ease;
 `;
 
 const Company = styled.h4`
   font-size: 1.2rem;
-  color: #007bff;
+  color: var(--accent-color);
   margin-bottom: 0.5rem;
 `;
 
 const DateRange = styled.span`
-  color: ${props => props.isDarkMode ? '#b0b0b0' : '#666'};
+  color: var(--text-secondary);
   font-size: 0.9rem;
   font-style: italic;
   transition: color 0.3s ease;
@@ -86,18 +92,23 @@ const Responsibilities = styled.ul`
 `;
 
 const Responsibility = styled.li`
-  color: ${props => props.isDarkMode ? '#b0b0b0' : '#666'};
+  color: var(--text-secondary);
   line-height: 1.8;
   margin-bottom: 0.75rem;
   padding-left: 1.5rem;
   position: relative;
   transition: color 0.3s ease;
+  font-size: 1rem;
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+  }
 
   &:before {
     content: "▹";
     position: absolute;
     left: 0;
-    color: #007bff;
+    color: var(--accent-color);
     font-weight: bold;
   }
 `;
@@ -109,13 +120,15 @@ const ProjectsGrid = styled.div`
 `;
 
 const ProjectCard = styled(motion.div)`
-  background: ${props => props.isDarkMode ? '#2a2a2a' : 'white'};
+  background: var(--bg-card);
   border-radius: 10px;
   padding: 1.5rem;
-  box-shadow: ${props => props.isDarkMode
-    ? '0 4px 6px rgba(0, 0, 0, 0.5)'
-    : '0 4px 6px rgba(0, 0, 0, 0.1)'};
+  box-shadow: 0 4px 6px var(--shadow-light);
   transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+
+  @media (max-width: 768px) {
+    padding: 1.25rem;
+  }
 
   &:hover {
     transform: translateY(-5px);
@@ -125,15 +138,20 @@ const ProjectCard = styled(motion.div)`
 const ProjectTitle = styled.h2`
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: ${props => props.isDarkMode ? '#e0e0e0' : '#333'};
+  color: var(--text-primary);
   transition: color 0.3s ease;
 `;
 
 const ProjectDescription = styled.p`
-  color: ${props => props.isDarkMode ? '#b0b0b0' : '#666'};
+  color: var(--text-secondary);
   margin-bottom: 1rem;
   line-height: 1.6;
   transition: color 0.3s ease;
+  font-size: 1rem;
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const TechStack = styled.div`
@@ -144,11 +162,11 @@ const TechStack = styled.div`
 `;
 
 const TechTag = styled.span`
-  background: ${props => props.isDarkMode ? '#3a3a3a' : '#f0f0f0'};
+  background: var(--bg-tertiary);
   padding: 0.25rem 0.75rem;
   border-radius: 15px;
   font-size: 0.875rem;
-  color: ${props => props.isDarkMode ? '#b0b0b0' : '#666'};
+  color: var(--text-secondary);
   transition: background-color 0.3s ease, color 0.3s ease;
 `;
 
@@ -173,8 +191,6 @@ const ProjectLink = styled.a`
 `;
 
 function Work() {
-    const { isDarkMode } = useTheme();
-
     const experiences = [
         {
             title: "Full Stack Software Engineer",
@@ -249,7 +265,6 @@ function Work() {
                 {experiences.map((experience, index) => (
                     <ExperienceCard
                         key={index}
-                        isDarkMode={isDarkMode}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.2 }}
@@ -257,37 +272,36 @@ function Work() {
                     >
                         <ExperienceHeader>
                             <div>
-                                <JobTitle isDarkMode={isDarkMode}>{experience.title}</JobTitle>
+                                <JobTitle>{experience.title}</JobTitle>
                                 <Company>{experience.company}</Company>
                             </div>
-                            <DateRange isDarkMode={isDarkMode}>{experience.dateRange}</DateRange>
+                            <DateRange>{experience.dateRange}</DateRange>
                         </ExperienceHeader>
                         <Responsibilities>
                             {experience.responsibilities.map((responsibility, i) => (
-                                <Responsibility key={i} isDarkMode={isDarkMode}>{responsibility}</Responsibility>
+                                <Responsibility key={i}>{responsibility}</Responsibility>
                             ))}
                         </Responsibilities>
                     </ExperienceCard>
                 ))}
             </ExperienceList>
 
-            <SectionTitle isDarkMode={isDarkMode}>My Projects</SectionTitle>
+            <SectionTitle>My Projects</SectionTitle>
             <ProjectsGrid>
                 {projects.map((project, index) => (
                     <ProjectCard
                         key={index}
-                        isDarkMode={isDarkMode}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.2 }}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                     >
-                        <ProjectTitle isDarkMode={isDarkMode}>{project.title}</ProjectTitle>
-                        <ProjectDescription isDarkMode={isDarkMode}>{project.description}</ProjectDescription>
+                        <ProjectTitle>{project.title}</ProjectTitle>
+                        <ProjectDescription>{project.description}</ProjectDescription>
                         <TechStack>
                             {project.technologies.map((tech, i) => (
-                                <TechTag key={i} isDarkMode={isDarkMode}>{tech}</TechTag>
+                                <TechTag key={i}>{tech}</TechTag>
                             ))}
                         </TechStack>
                         <ProjectLinks>
