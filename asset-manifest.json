@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/beloWebsite/static/css/main.76b1cfec.css",
-    "main.js": "/beloWebsite/static/js/main.0b95dd4d.js",
+    "main.js": "/beloWebsite/static/js/main.d30d3bbf.js",
     "static/js/453.513b902e.chunk.js": "/beloWebsite/static/js/453.513b902e.chunk.js",
     "static/media/pp.jpeg": "/beloWebsite/static/media/pp.eb94965697ba2bd61b5b.jpeg",
     "index.html": "/beloWebsite/index.html",
     "main.76b1cfec.css.map": "/beloWebsite/static/css/main.76b1cfec.css.map",
-    "main.0b95dd4d.js.map": "/beloWebsite/static/js/main.0b95dd4d.js.map",
+    "main.d30d3bbf.js.map": "/beloWebsite/static/js/main.d30d3bbf.js.map",
     "453.513b902e.chunk.js.map": "/beloWebsite/static/js/453.513b902e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.76b1cfec.css",
-    "static/js/main.0b95dd4d.js"
+    "static/js/main.d30d3bbf.js"
   ]
 }
