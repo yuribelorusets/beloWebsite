@@ -90,10 +90,10 @@ const AboutMe = () => {
                 transition={{ duration: 0.5 }}
             >
                 <Paragraph>
-                I'm a Full Stack Software Engineer who loves turning messy, real-world problems into simple, reliable products. Before tech, I spent years in professional kitchens, and that experience still shapes how I work today: stay calm under pressure, move fast without cutting corners, and obsess over the details that make an experience feel effortless.
+                I'm a Full Stack Software Engineer who loves turning real-world problems into simple, reliable software solutions. Before tech, I spent years in professional kitchens, and that experience still shapes how I work today: staying calm under pressure, moving fast without cutting corners, and obsessing over the details that make an experience feel effortless.
                 </Paragraph>
                 <Paragraph>
-                These days, I focus on building end-to-end web applications and internal workflows that actually move the needle for users and teams. Recently, I helped automate complex transaction workflows to 80% coverage, saving over $2M in time and operational costs. I enjoy working across the stack with JavaScript/TypeScript, React, Node, Python, and SQL—whether that's designing clean APIs, optimizing data flows, or refining the UX so it feels intuitive and fast.
+                These days, I focus on building end-to-end web applications and internal workflows that actually help users and teams. Recently, I helped automate complex transaction workflows to 80% coverage, saving over $2M in time and operational costs. I enjoy working across the stack with JavaScript/TypeScript, React, Node, Python, and SQL—whether that's designing clean APIs, optimizing data flows, or refining the UX so it feels intuitive and fast.
                 </Paragraph>
                 <Paragraph>
                 I'm especially interested in problems around growth, performance, and observability: making products faster, more insightful, and easier to adopt. I care a lot about writing clean, maintainable code, collaborating closely with cross-functional partners, and using data and experimentation to guide what to build next.
